@@ -46,6 +46,14 @@ public class UserRestController {
 		//Business Logic
 		return userService.getUser(userId);
 	}
+	
+	@RequestMapping( value="json/login", method=RequestMethod.GET)
+	public User login() throws Exception {
+		
+		System.out.println("/user/login : GET");
+		
+		return null;
+	}
 
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
 	public User login(	@RequestBody User user,
@@ -62,4 +70,69 @@ public class UserRestController {
 		
 		return dbUser;
 	}
+	
+	@RequestMapping( value="json/logout", method = RequestMethod.GET)
+	public User logout(HttpSession session) throws Exception {
+		
+		System.out.println("/user/json/logout : POST");
+		
+		session.invalidate();
+				
+		return null;
+	}
+	
+	@RequestMapping( value="json/checkDuplication", method = RequestMethod.POST)
+	public User checkDuplication(@PathVariable String userId, Model model) throws Exception {
+		
+		System.out.println("/user/json/checkDuplication : POST");
+		
+		boolean result=userService.checkDuplication(userId);
+		
+		model.addAttribute("result", new Boolean(result));
+		model.addAttribute("userId", userId);
+		
+		return null;
+	}
+	
+	@RequestMapping(value="json/addUser/", method = RequestMethod.GET)
+	public User addUser() throws Exception {
+		
+		System.out.println("/user/json/addUser : GET");
+		
+		return null;
+	}
+	
+	@RequestMapping(value="json/addUser/", method = RequestMethod.POST)
+	public User addUser(@RequestBody User user) throws Exception {
+		
+		System.out.println("/user/json/addUser : POST");
+		
+		userService.addUser(user);
+		return userService.getUser(user.getUserId());
+	}
+	
+	@RequestMapping(value="json/updateUser", method=RequestMethod.GET)
+	public User updateUser(@PathVariable String userId) throws Exception {
+		
+		System.out.println("/user/json/updateUser : GET");
+		
+		return userService.getUser(userId);
+	}
+	
+	@RequestMapping(value="json/updateUser", method=RequestMethod.POST)
+	public User updateUser(@RequestBody User user, HttpSession session) throws Exception {
+		
+		System.out.println("user/json/updateUser : POST");
+		
+		userService.updateUser(user);
+		
+		String sessionId = ((User)session.getAttribute("user")).getUserId();
+		if(sessionId.equals(user.getUserId())) {
+			session.setAttribute("user", user);
+		}
+		
+		return user;		
+	}
+	
+	
 }
