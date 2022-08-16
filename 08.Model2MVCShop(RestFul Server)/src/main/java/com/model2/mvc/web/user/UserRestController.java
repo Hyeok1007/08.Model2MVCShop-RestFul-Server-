@@ -94,7 +94,7 @@ public class UserRestController {
 		return null;
 	}
 	
-	@RequestMapping(value="json/addUser/", method = RequestMethod.GET)
+	@RequestMapping(value="json/addUser", method = RequestMethod.GET)
 	public User addUser() throws Exception {
 		
 		System.out.println("/user/json/addUser : GET");
@@ -102,7 +102,7 @@ public class UserRestController {
 		return null;
 	}
 	
-	@RequestMapping(value="json/addUser/", method = RequestMethod.POST)
+	@RequestMapping(value="json/addUser", method = RequestMethod.POST)
 	public User addUser(@RequestBody User user) throws Exception {
 		
 		System.out.println("/user/json/addUser : POST");
