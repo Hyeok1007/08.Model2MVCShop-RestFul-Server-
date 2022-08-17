@@ -71,17 +71,17 @@ public class UserRestController {
 		return dbUser;
 	}
 	
-	@RequestMapping( value="json/logout", method = RequestMethod.GET)
-	public User logout(HttpSession session) throws Exception {
-		
-		System.out.println("/user/json/logout : POST");
-		
-		session.invalidate();
-				
-		return null;
-	}
+//	@RequestMapping( value="json/logout", method = RequestMethod.GET)
+//	public User logout(HttpSession session) throws Exception {
+//		
+//		System.out.println("/user/json/logout : POST");
+//		
+//		session.invalidate();
+//				
+//		return null;
+//	}
 	
-	@RequestMapping( value="json/checkDuplication", method = RequestMethod.POST)
+	@RequestMapping( value="json/checkDuplication/{userId}", method = RequestMethod.POST)
 	public User checkDuplication(@PathVariable String userId, Model model) throws Exception {
 		
 		System.out.println("/user/json/checkDuplication : POST");
@@ -120,18 +120,19 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/updateUser", method=RequestMethod.POST)
-	public User updateUser(@RequestBody User user, HttpSession session) throws Exception {
+//	public User updateUser(@RequestBody User user, HttpSession session) throws Exception {
+	public User updateUser(@RequestBody User user) throws Exception {
 		
 		System.out.println("user/json/updateUser : POST");
 		
 		userService.updateUser(user);
 		
-		String sessionId = ((User)session.getAttribute("user")).getUserId();
-		if(sessionId.equals(user.getUserId())) {
-			session.setAttribute("user", user);
-		}
+//		String sessionId = ((User)session.getAttribute("user")).getUserId();
+//		if(sessionId.equals(user.getUserId())) {
+//			session.setAttribute("user", user);
+//		}
 		
-		return user;		
+		return userService.getUser(user.getUserId());
 	}
 	
 	
