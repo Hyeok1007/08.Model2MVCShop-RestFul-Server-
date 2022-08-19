@@ -39,15 +39,18 @@ public class ProductRestController {
 		System.out.println("/product/json/addProduct : GET");
 		
 		return null;
-	}
+	}	
 	
 	@RequestMapping(value="json/addProduct", method=RequestMethod.POST)
 	public Product addProduct(@RequestBody Product product) throws Exception {
 		
 		System.out.println("/product/json/addProduct : POST");
 		
-		productService.addProduct(product);
-		return productService.getProduct(product.getProdNo());
+		productService.addProduct(product);		
+		
+//		return productService.getProduct(product.getProdNo());
+		
+		return product;
 	}
 	
 	@RequestMapping(value="json/updateProduct", method=RequestMethod.POST)

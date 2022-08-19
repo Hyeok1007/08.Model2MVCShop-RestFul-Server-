@@ -38,6 +38,11 @@ public class UserRestController {
 		System.out.println(this.getClass());
 	}
 	
+	@Value("#{commonProperties['pageUnit']}")
+	int pageUnit;
+	@Value("#{commonProperties['pageSize']}")
+	int pageSize;
+	
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
 	public User getUser( @PathVariable String userId ) throws Exception{
 		
@@ -108,7 +113,9 @@ public class UserRestController {
 		System.out.println("/user/json/addUser : POST");
 		
 		userService.addUser(user);
-		return userService.getUser(user.getUserId());
+		
+//		return userService.getUser(user.getUserId());
+		return user;
 	}
 	
 	@RequestMapping(value="json/updateUser", method=RequestMethod.GET)
@@ -117,13 +124,14 @@ public class UserRestController {
 		System.out.println("/user/json/updateUser : GET");
 		
 		return userService.getUser(userId);
+				
 	}
 	
 	@RequestMapping(value="json/updateUser", method=RequestMethod.POST)
 //	public User updateUser(@RequestBody User user, HttpSession session) throws Exception {
 	public User updateUser(@RequestBody User user) throws Exception {
 		
-		System.out.println("user/json/updateUser : POST");
+		System.out.println("/user/json/updateUser : POST");
 		
 		userService.updateUser(user);
 		
@@ -133,7 +141,30 @@ public class UserRestController {
 //		}
 		
 		return userService.getUser(user.getUserId());
+//		return user;
+		
 	}
 	
+	@RequestMapping(value="json/listUser")
+	public Map listUser(@RequestBody Search search, Model model) throws Exception {
+		
+		System.out.println("/user/json/listUser");
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = userService.getUserList(search);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage",resultPage);
+		model.addAttribute("search",search);
+		
+		return map;
+	}
 	
 }
