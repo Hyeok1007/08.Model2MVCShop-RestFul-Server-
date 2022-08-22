@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 
-	function fncLogin() {
+ function fncLogin() {
 		var id=document.loginForm.userId.value;
 		var pw=document.loginForm.password.value;
 		if(id == null || id.length <1) {
@@ -25,11 +25,11 @@
 	    document.loginForm.submit();
 	}
 	
-	//Call Back Method 이용 onload 시 Event 처리
+	/* //Call Back Method 이용 onload 시 Event 처리
 	window.onload = function(){
 		document.getElementById("userId").focus();
 	}
-
+ */
 </script>
 
 </head>
