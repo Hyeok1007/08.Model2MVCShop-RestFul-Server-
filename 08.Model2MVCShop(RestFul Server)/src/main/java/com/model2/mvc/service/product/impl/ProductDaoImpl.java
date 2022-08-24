@@ -51,7 +51,7 @@ public class ProductDaoImpl implements ProductDao{
 	}
 	
 	public String makeCurrentPageSql(String sql, Search search) throws Exception {
-		return sqlSession.selectOne("ProductMapper.getMakeCurrentPage", search);
+		return sqlSession.selectOne("ProductMapper.MakeCurrentPage", search);
 	}
 
 }

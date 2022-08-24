@@ -52,13 +52,13 @@ public class UserRestController {
 		return userService.getUser(userId);
 	}
 	
-	@RequestMapping( value="json/login", method=RequestMethod.GET)
-	public User login() throws Exception {
-		
-		System.out.println("/user/login : GET");
-		
-		return null;
-	}
+//	@RequestMapping( value="json/login", method=RequestMethod.GET)
+//	public User login() throws Exception {
+//		
+//		System.out.println("/user/login : GET");
+//		
+//		return null;
+//	}
 
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
 	public User login(	@RequestBody User user,
@@ -99,13 +99,13 @@ public class UserRestController {
 		return null;
 	}
 	
-	@RequestMapping(value="json/addUser", method = RequestMethod.GET)
-	public User addUser() throws Exception {
-		
-		System.out.println("/user/json/addUser : GET");
-		
-		return null;
-	}
+//	@RequestMapping(value="json/addUser", method = RequestMethod.GET)
+//	public User addUser() throws Exception {
+//		
+//		System.out.println("/user/json/addUser : GET");
+//		
+//		return null;
+//	}
 	
 	@RequestMapping(value="json/addUser", method = RequestMethod.POST)
 	public User addUser(@RequestBody User user) throws Exception {
@@ -146,7 +146,7 @@ public class UserRestController {
 	}
 	
 	@RequestMapping(value="json/listUser")
-	public Map listUser(@RequestBody Search search, Model model) throws Exception {
+	public Map<String, Object> listUser(@RequestBody Search search, Model model) throws Exception {
 		
 		System.out.println("/user/json/listUser");
 		
